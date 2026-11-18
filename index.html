@@ -781,7 +781,7 @@ function buildReport(){
     <div class="rs">Financial health</div>
     ${r.hasInc?`<div class="rbox"><div class="sc">${r.score}<span style="font-size:11px;color:#7A6A6C">/100</span></div><div><b style="font-size:13px">${r.verdict}</b><br><span style="color:#7A6A6C">${r.vText}</span></div></div>
     <div class="rk3"><div><small>Kita kada buwan</small><b>${peso(r.income)}</b></div><div><small>Kabuuang gastusin</small><b>${peso(r.expenses)}</b></div><div><small>Natitira kada buwan</small><b>${peso(r.surplus)}</b></div></div>
-    ${r.metrics.map(x=>`<div class="rm ${x.st}"><div class="a"><span>${x.t} · <span style="font-weight:500;color:#7A6A6C">${x.d}</span></span><span>${x.v}</span></div><div class="tp"><b>${x.tg[0][0]}: ${x.tg[0][1]}</b> · ${x.tg[1][0]}: ${x.tg[1][1]}</div>${x.tip?`<div class="tp">${x.tip}</div>`:""}</div>`).join("")}`:`<p>Walang inilagay na kita.</p>`}
+    ${r.metrics.map(x=>`<div class="rm ${x.st}"><div class="a"><span>${x.t} · <span style="font-weight:500;color:#7A6A6C">${x.d}</span></span><span>${x.v}</span></div><div class="tp"><b>Dapat:</b> ${x.aim}${x.gap?` · <b>Kailangang itabi/ayusin:</b> ${x.gap}`:""}</div><div class="tp">${x.tip}</div></div>`).join("")}`:`<p>Walang inilagay na kita.</p>`}
   </div>`;
   const p2=`<div class="rp">${head("Goal plan")}
     ${r.gAmt?`<table class="rt">
@@ -939,21 +939,26 @@ function calc(){
   $("hBody").classList.toggle("hide",!hasInc);
   if(hasInc){
     const m=[];
-    const tr=tith/income, s1=Math.min(tr/0.10,1);
-    m.push({t:"Tithes",d:"Target: 10% ng kita",tg:[["Target kada buwan",peso(0.1*income)],["Ngayon",peso(tith)]],v:pct(tr),s:s1,bar:s1,
-      tip:s1<1?`Ang 10% ng kita mo ay <b>${peso(0.1*income)}</b>. Unahin ang Diyos: ihiwalay ang tithes pagdating ng sweldo, bago ang ibang gastos.`:""});
-    const sr=saving/income, s2=Math.min(sr/0.20,1);
-    m.push({t:"Savings",d:"Target: 20% ng kita ang naiipon o na-i-invest",tg:[["Target kada buwan",peso(0.2*income)],["Ngayon",peso(saving)]],v:pct(sr),s:s2,bar:s2,
-      tip:s2<1?`Dagdagan ng <b>${peso(0.2*income-saving)}</b> kada buwan. Subukan ang <b>"Ipon muna bago gastos"</b> at i-automate ito.`:""});
-    const dti=lpay/income, s3=lpay===0?1:dti<=0.30?1:dti<=0.40?0.5:0;
-    m.push({t:"Utang",d:"Target: hanggang 30% ng kita ang hulog",tg:[["Max na hulog kada buwan",peso(0.3*income)],["Ngayon",peso(lpay)]],v:pct(dti),s:s3,
-      tip:s3<1?`Iwasan muna ang bagong utang at unahing bayaran ang may pinakamataas na interest (hal. credit card).`:""});
-    const s4=Math.min(efMonths/efTarget,1);
-    m.push({t:"Emergency fund",d:`Target: ${efTarget} buwan ng needs + hulog`,tg:[["Target na ipon",peso(efTarget*essentials)],["Cash ngayon",peso(cash)]],v:(efMonths>=99?"99+":efMonths.toFixed(1))+" buwan",s:s4,bar:s4,
-      tip:s4<1?`Kulang pa ng <b>${peso(efTarget*essentials-cash)}</b>. Magtabi kada sweldo sa hiwalay na account o sa <b>BPI Short Term Fund</b>.`:""});
-    const protNeed=depA*depY+debt, protHave=ins+cash+inv, gap=Math.max(0,protNeed-protHave), s5=protNeed===0?1:Math.min(protHave/protNeed,1);
-    m.push({t:"Insurance",tg:[["Target na life coverage",peso(Math.max(0,protNeed-cash-inv))],["Coverage ngayon",peso(ins)]],d:depA>0?`Kailangan: ${peso(depA)} × ${depY} taon + utang`:"Proteksyon para sa utang at pamilya",v:gap>0?"Kulang "+short(gap):"Covered",s:s5,bar:protNeed?s5:null,
-      tip:gap>0?`Kung may mangyari sa iyo, kulang ng <b>${peso(gap)}</b> ang maiiwan. Pag-usapan ang dagdag na <b>life insurance</b> sa advisor mo.`:""});
+    const tr=tith/income, s1=Math.min(tr/0.10,1), tT=0.1*income;
+    m.push({t:"Tithes",d:"Target: 10% ng kita",v:pct(tr),s:s1,bar:s1,
+      aim:`${peso(tT)} kada buwan`, gap:s1<1?`${peso(tT-tith)} pa kada buwan`:"",
+      tip:s1<1?`Unahin ang Diyos: ihiwalay ang tithes pagdating ng sweldo, bago ang ibang gastos.`:`Pasok ka! Ituloy ang pagiging tapat sa pagbibigay.`});
+    const sr=saving/income, s2=Math.min(sr/0.20,1), sT=0.2*income;
+    m.push({t:"Savings",d:"Target: 20% ng kita ang naiipon o na-i-invest",v:pct(sr),s:s2,bar:s2,
+      aim:`${peso(sT)} kada buwan`, gap:s2<1?`${peso(sT-saving)} pa kada buwan`:"",
+      tip:s2<1?`Subukan ang <b>"Ipon muna bago gastos"</b>: pagdating ng sweldo, itabi o i-auto-invest muna bago gumastos.`:`Pasok ka! Siguraduhing may layunin at tamang investment ang ipon mo.`});
+    const dti=lpay/income, s3=lpay===0?1:dti<=0.30?1:dti<=0.40?0.5:0, dT=0.3*income;
+    m.push({t:"Utang",d:"Target: hanggang 30% ng kita ang hulog",v:pct(dti),s:s3,bar:lpay?Math.min(1,dT/Math.max(lpay,1)):null,
+      aim:`hanggang ${peso(dT)} kada buwan`, gap:lpay>dT?`bawasan ng ${peso(lpay-dT)} kada buwan`:"",
+      tip:s3<1?`Iwasan muna ang bagong utang at unahing bayaran ang may pinakamataas na interest (hal. credit card).`:lpay?`Pasok ka! Iwasang madagdagan ang utang at bayaran nang maaga kung kaya.`:`Walang utang. Ituloy!`});
+    const s4=Math.min(efMonths/efTarget,1), eT=efTarget*essentials;
+    m.push({t:"Emergency fund",d:`Target: ${efTarget} buwan ng needs + hulog`,v:(efMonths>=99?"99+":efMonths.toFixed(1))+" buwan",s:s4,bar:s4,
+      aim:`${peso(eT)} na ipon`, gap:s4<1?`${peso(eT-cash)} pa (mga ${peso((eT-cash)/12)} kada buwan sa loob ng 12 buwan)`:"",
+      tip:s4<1?`Magtabi kada sweldo sa hiwalay na account o sa <b>BPI Short Term Fund</b> para hindi magalaw sa araw-araw.`:`Pasok ka! Ilagay ito sa lugar na madaling i-withdraw kapag kailangan.`});
+    const protNeed=depA*depY+debt, protHave=ins+cash+inv, gap=Math.max(0,protNeed-protHave), s5=protNeed===0?1:Math.min(protHave/protNeed,1), iT=Math.max(0,protNeed-cash-inv);
+    m.push({t:"Insurance",d:depA>0?`Kailangan: ${peso(depA)} × ${depY} taon + utang`:"Proteksyon para sa utang at pamilya",v:gap>0?"Kulang "+peso(gap):"Covered",s:s5,bar:protNeed?s5:null,
+      aim:protNeed?`${peso(iT)} na life coverage`:"walang kailangan sa ngayon", gap:gap>0?`${peso(gap)} pang coverage`:"",
+      tip:gap>0?`Kung may mangyari sa iyo, ito ang kulang na maiiwan sa pamilya mo. Pag-usapan ang dagdag na <b>life insurance</b> sa advisor mo; mas mura ito habang bata at malusog ka.`:`Pasok ka! I-review ang coverage mo tuwing may bagong umaasa o utang.`});
     const score=Math.round(m.reduce((a,x)=>a+x.s*20,0));
     $("score").textContent=score; $("ring").style.strokeDashoffset=477.5*(1-score/100);
     const vs=score>=80?"good":score>=50?"ok":"bad";
@@ -965,7 +970,7 @@ function calc(){
     $("cfWarn").innerHTML=surplus<0?`<div class="warnbox"><div class="dot">!</div><div><b>Mas malaki ang gastos kaysa kita</b> ng ${peso(-surplus)} kada buwan. Unahing bawasan ang wants (${peso(wants)}).</div></div>`:"";
     Object.assign(REP,{score,verdict:$("verdict").textContent,vText:$("vText").textContent,metrics:m.map(x=>({...x,st:stat(x.s),tip:x.tip}))});
     $("metrics").innerHTML=m.map(x=>{const st=stat(x.s);return `<div class="metric ${st}"><div class="top"><div><div class="t">${x.t} <span class="pill ${st}">${LBL[st]}</span></div><div class="d">${x.d}</div></div><div class="v">${x.v}</div></div>
-      ${x.bar!=null?`<div class="bar"><i style="width:${Math.max(3,x.bar*100)}%"></i></div>`:""}<div class="tg">${x.tg.map(g=>`<div><small>${g[0]}</small><b>${g[1]}</b></div>`).join("")}</div>${x.tip?`<div class="tip"><b>Tip:</b> ${x.tip}</div>`:""}</div>`;}).join("");
+      ${x.bar!=null?`<div class="bar"><i style="width:${Math.max(3,x.bar*100)}%"></i></div>`:""}<div class="tip"><div><b>Dapat:</b> ${x.aim}</div>${x.gap?`<div><b>Kailangang itabi/ayusin:</b> ${x.gap}</div>`:""}<div style="margin-top:4px"><b>Tip:</b> ${x.tip}</div></div></div>`;}).join("");
   }
 
   Object.assign(REP,{age,cash,inv,debt,lpay,hasDebt,sal,oth,tith,needs,wants,invAmt,depA,depY,ins,income,expenses,surplus,hasInc,yrs,invRateTxt:(invRate*100).toFixed(1).replace(".0","")+"%"});
