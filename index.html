@@ -251,7 +251,8 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 16px 26
 .goalstrip .two div{background:rgba(255,255,255,.1);border-radius:12px;padding:10px 12px}
 .goalstrip small{display:block;font-size:11px;opacity:.8;font-weight:600}
 .goalstrip b{font-size:17px}
-.risk3 button .fn{display:block;font-size:10.5px;color:var(--gold-dk);font-weight:700;margin-top:4px;line-height:1.2}
+.risk3 button .fn{display:block;font-size:13px;color:var(--gold-dk);font-weight:800;margin-top:4px;line-height:1.2}
+.risk3 button small{display:block;font-size:10px;line-height:1.25;margin-top:2px}
 .risk3 button .lv{display:block;width:30px;height:6px;border-radius:9px;margin:0 auto 6px}
 .pickfund{display:flex;gap:12px;align-items:center;background:#fff;border:1.5px solid var(--gold);border-radius:16px;padding:14px;margin-bottom:12px}
 .pickfund div{flex:1;min-width:0}
@@ -326,6 +327,9 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 16px 26
 #gateBtn{width:100%;background:var(--gold);color:#fff;font-size:16px}
 #gateBtn:disabled{background:rgba(255,255,255,.25);color:rgba(255,255,255,.7);cursor:not-allowed}
 #report{display:none}
+.illus{display:inline-block;background:rgba(201,162,39,.2);border:1px solid rgba(201,162,39,.6);color:#F3D9A0;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-bottom:8px}
+.res60 .pfoot{margin-top:10px;font-size:10px;opacity:.55;font-style:italic;text-align:left}
+.illusnote{display:block;margin:8px 0 4px;font-size:12px;opacity:.85;font-style:italic;line-height:1.45}
 .tg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .tg div{background:var(--bg);border-radius:10px;padding:8px 10px}
 .tg div:first-child{background:var(--ruby-lt)}
@@ -380,7 +384,7 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 16px 26
     <b>Mahalagang paalala</b>
     <ul>
       <li>Ang calculator na ito ay para sa <b>edukasyon at paglalarawan (illustration) lamang</b>. Hindi ito financial, investment, tax o legal advice.</li>
-      <li>Ang mga projection ay <b>historical simulation lamang</b>, base sa nakaraang performance ng mga fund ayon sa kanilang KIIDS (Setyembre 30, 2026).</li>
+      <li>Ang mga projection ay <b>historical simulation lamang</b>, base sa nakaraang 10-taon na average return ng mga benchmark (1-year T-bill, 10-year government securities, S&amp;P 500) at sa nakaraang performance ng mga fund ayon sa kanilang KIIDS (Setyembre 30, 2026).</li>
       <li><b>Walang garantiya</b> ang mga resulta. Ang nakaraang performance ay hindi garantiya ng magiging resulta sa hinaharap. Maaaring tumaas o bumaba ang halaga ng investment, at <b>maaari kang malugi</b>.</li>
       <li>Ang mga UITF at mutual fund ay <b>HINDI deposit products</b>, hindi garantisado ng BPI o BPI Wealth, at <b>hindi insured ng PDIC</b>.</li>
       <li>Ang inflation, return at iba pang ipinapalagay na numero ay tantiya lamang. Maaaring iba ang aktwal na mangyayari.</li>
@@ -534,20 +538,21 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 16px 26
 
     <div class="sec-t" style="margin-top:6px">1. Pumili ng investment<small>Gaano ka komportable sa pagtaas-baba ng halaga?</small></div>
     <div id="riskWrap" class="risk3">
-      <button data-r="st"><span class="lv" style="background:#E9D9A6"></span><b>Low risk</b><span class="fn">BPI Short Term Fund</span></button>
-      <button data-r="gb"><span class="lv" style="background:var(--gold)"></span><b>Medium risk</b><span class="fn">BPI Global Bond Income Fund</span></button>
-      <button data-r="us"><span class="lv" style="background:var(--ruby)"></span><b>High risk</b><span class="fn">BPI US Equity Index Feeder Fund</span></button>
+      <button data-r="st"><span class="lv" style="background:#E9D9A6"></span><b>Low risk</b><span class="fn">~3.9%/taon</span></button>
+      <button data-r="gb"><span class="lv" style="background:var(--gold)"></span><b>Medium risk</b><span class="fn">~4.75%/taon</span></button>
+      <button data-r="us"><span class="lv" style="background:var(--ruby)"></span><b>High risk</b><span class="fn">~13.44%/taon</span></button>
     </div>
     <div id="hzWarn"></div>
-    <div class="pickfund" id="pickFund"></div>
 
-    <div class="sec-t">2. Ang kailangan mong gawin ngayon</div>
+    <div class="sec-t">2. Ang pwede mong gawin ngayon</div>
     <div class="now">
       <div class="lbl" id="nowLbl"></div>
       <div class="big" id="needMo"></div>
       <p id="needTxt"></p>
       <p id="useInvTxt" style="font-size:12.5px;color:var(--muted);margin-top:8px"></p>
       <div id="gStatus" style="margin-top:12px"></div>
+      <div class="sec-t" style="margin:16px 0 8px;font-size:13px">Halimbawang investment para sa ganitong risk</div>
+      <div class="pickfund" id="pickFund" style="margin-bottom:0"></div>
     </div>
 
     <div class="sec-t">3. Paano kung… <small>Ilagay kung magkano ang kaya mo, at tingnan kung paano ito lalago</small></div>
@@ -567,7 +572,7 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 16px 26
       <div class="oth"><div><b>BPI PERA</b><small>Retirement fund na may 5% tax credit at tax-free na kita</small></div><button class="lnk" onclick="openPERA()">Alamin pa →</button></div>
     </div>
 
-    <div class="discl"><b>Paalala:</b> Ang projection ay <b>historical simulation lamang</b> gamit ang nakaraang annualized return ng fund mula sa KIIDS (Sept 30, 2026). <b>Hindi ito garantiya</b> o hula ng future returns; ang nakaraang performance ay hindi garantiya ng susunod na resulta. Maaaring tumaas o bumaba ang halaga ng investment at maaari kang malugi. Ang UITFs ay HINDI deposit products, hindi garantisado ng BPI o BPI Wealth, at hindi insured ng PDIC. Kumonsulta sa BPI Wealth advisor para sa risk profiling bago mag-invest.</div>
+    <div class="discl"><b>Paalala:</b> Ang projection ay <b>historical simulation lamang</b> gamit ang nakaraang 10-taon na average return ng mga benchmark: Low risk 3.9% (1-year Philippine T-bill, 2016–2025; tantiya ang 2024–2025), Medium risk 4.75% (10-year government securities), High risk 13.44% (S&amp;P 500 total return sa US dollars, ayon sa S&amp;P Global, Set. 2026). Ito ay <b>para sa illustration lamang at walang garantiya</b>. Hindi ito ang aktwal na return ng anumang fund; ang mga BPI fund na binanggit ay halimbawa lamang, at may sariling fees, currency risk at performance. Ang nakaraang performance ay hindi garantiya ng future results; maaaring tumaas o bumaba ang halaga ng investment at maaari kang malugi. Ang UITFs ay HINDI deposit products, hindi garantisado ng BPI o BPI Wealth, at hindi insured ng PDIC. Kumonsulta sa BPI Wealth advisor para sa risk profiling bago mag-invest.</div>
   </div>
   <div class="row"><button class="btn gh" data-go="p-health">← Health</button><button class="btn gold" onclick="printReport()">I-save as PDF</button><button class="btn pri" onclick="resetAll()">↺ I-reset lahat</button></div>
 </section>
@@ -611,7 +616,7 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 16px 26
   </div>
   <div id="pWarn"></div>
   <div class="res60">
-    <small id="pFundL"></small>
+    <small id="pFundL" style="display:block"></small>
     <div class="big" id="pFV"></div>
     <p id="pDesc"></p>
     <div class="trio">
@@ -619,6 +624,7 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 16px 26
       <div><small>Tax credit kada taon</small><b id="pTaxY"></b></div>
       <div><small>Kabuuang tax credit</small><b id="pTax"></b></div>
     </div>
+    <p class="pfoot">Illustration only · Actual returns may vary</p>
   </div>
   <div class="card cmp">
     <div class="ch" style="margin-bottom:10px"><div><h3>Kung ikukumpara ang 4 na PERA fund</h3><small id="cmpSub"></small></div></div>
@@ -657,6 +663,10 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 16px 26
 const INFLATION = 0.04;
 const PERA_LIMIT = 200000, PERA_LIMIT_OFW = 400000, PERA_CREDIT = 0.05;
 const AS_OF = "Sept 30, 2026";
+/* Goal-plan returns by risk level (10-year averages). Low: PH 364-day T-bill 2016–2025 (2024–25 estimated from auctions); Medium: 10-yr GS; High: S&P 500 10-yr annualized total return (S&P Global, Sept 2026, USD) */
+const RISK = { st:{rate:3.9, lvl:"Low risk", basis:"10-taon na average ng 1-year T-bill"},
+               gb:{rate:4.75, lvl:"Medium risk", basis:"10-taon na average ng 10-year government securities"},
+               us:{rate:13.44, lvl:"High risk", basis:"10-taon na average ng S&P 500"} };
 /* Fund data from the Sept 30, 2026 KIIDS. sim = return used in the goal simulation (historical). */
 const FUNDS = {
   st:{ name:"BPI Short Term Fund", level:"Low risk", profile:"Conservative", horizon:1,
@@ -781,13 +791,13 @@ function buildReport(){
     <div class="rs">Financial health</div>
     ${r.hasInc?`<div class="rbox"><div class="sc">${r.score}<span style="font-size:11px;color:#7A6A6C">/100</span></div><div><b style="font-size:13px">${r.verdict}</b><br><span style="color:#7A6A6C">${r.vText}</span></div></div>
     <div class="rk3"><div><small>Kita kada buwan</small><b>${peso(r.income)}</b></div><div><small>Kabuuang gastusin</small><b>${peso(r.expenses)}</b></div><div><small>Natitira kada buwan</small><b>${peso(r.surplus)}</b></div></div>
-    ${r.metrics.map(x=>`<div class="rm ${x.st}"><div class="a"><span>${x.t} · <span style="font-weight:500;color:#7A6A6C">${x.d}</span></span><span>${x.v}</span></div><div class="tp"><b>Dapat:</b> ${x.aim}${x.gap?` · <b>Kailangang itabi/ayusin:</b> ${x.gap}`:""}</div><div class="tp">${x.tip}</div></div>`).join("")}`:`<p>Walang inilagay na kita.</p>`}
+    ${r.metrics.map(x=>`<div class="rm ${x.st}"><div class="a"><span>${x.t} · <span style="font-weight:500;color:#7A6A6C">${x.d}</span></span><span>${x.v}</span></div><div class="tp"><b>${x.al||"Target"}:</b> ${x.aim}${x.gap?` · <b>Kailangang itabi/ayusin:</b> ${x.gap}`:""}</div><div class="tp">${x.tip}</div></div>`).join("")}`:`<p>Walang inilagay na kita.</p>`}
   </div>`;
   const p2=`<div class="rp">${head("Goal plan")}
     ${r.gAmt?`<table class="rt">
       ${row("Goal",r.gName,"Kailan",r.when)}
       ${row("Halaga ngayon",peso(r.gAmt),"Halaga pagdating ng araw",peso(r.fCost)+" (+4% inflation)")}
-      ${row("Napiling investment",r.fund,"Nakaraang return na ginamit",r.fundRet)}
+      ${row("Napiling risk level",r.fund,"Return na ginamit",r.fundRet)}
       ${row("Current investments",peso(r.inv),"Tantiyang halaga sa Year "+r.yrs,peso(r.invFV))}
     </table>
     <div class="rs">Ang kailangan kong gawin ngayon</div>
@@ -799,7 +809,7 @@ function buildReport(){
     </table>
     <p style="margin:8px 0;font-weight:700;color:${r.hit?"#2E7D4F":"#A86B12"}">Kapag sinimulan mo ito, ${r.hitTxt}</p>
     <div class="rchart">${$("simChart").outerHTML}</div>`:`<p>Walang inilagay na goal.</p>`}
-    <div class="rdisc"><b>Paalala:</b> Para sa edukasyon at illustration lamang; hindi ito financial advice. Ang projection ay historical simulation lamang base sa nakaraang return mula sa KIIDS (Sept 30, 2026) at walang garantiya; ang nakaraang performance ay hindi garantiya ng future results. Maaaring tumaas o bumaba ang halaga ng investment at maaaring malugi. Ang UITFs at mutual funds ay HINDI deposit products, hindi garantisado ng BPI o BPI Wealth, at hindi insured ng PDIC. Kumonsulta sa BPI Wealth advisor at dumaan sa risk profiling bago mag-invest.</div>
+    <div class="rdisc"><b>Paalala:</b> Para sa edukasyon at illustration lamang; hindi ito financial advice. Ang projection ay historical simulation lamang base sa 10-taon na average ng benchmark (Low 3.9% T-bill; Medium 4.75% 10-yr GS; High 13.44% S&P 500, USD) at walang garantiya; ang mga fund na binanggit ay halimbawa lamang; ang nakaraang performance ay hindi garantiya ng future results. Maaaring tumaas o bumaba ang halaga ng investment at maaaring malugi. Ang UITFs at mutual funds ay HINDI deposit products, hindi garantisado ng BPI o BPI Wealth, at hindi insured ng PDIC. Kumonsulta sa BPI Wealth advisor at dumaan sa risk profiling bago mag-invest.</div>
   </div>`;
   $("report").innerHTML=p1+p2;
 }
@@ -948,8 +958,8 @@ function calc(){
       aim:`${peso(sT)} kada buwan`, gap:s2<1?`${peso(sT-saving)} pa kada buwan`:"",
       tip:s2<1?`Subukan ang <b>"Ipon muna bago gastos"</b>: pagdating ng sweldo, itabi o i-auto-invest muna bago gumastos.`:`Pasok ka! Siguraduhing may layunin at tamang investment ang ipon mo.`});
     const dti=lpay/income, s3=lpay===0?1:dti<=0.30?1:dti<=0.40?0.5:0, dT=0.3*income;
-    m.push({t:"Utang",d:"Target: hanggang 30% ng kita ang hulog",v:pct(dti),s:s3,bar:lpay?Math.min(1,dT/Math.max(lpay,1)):null,
-      aim:`hanggang ${peso(dT)} kada buwan`, gap:lpay>dT?`bawasan ng ${peso(lpay-dT)} kada buwan`:"",
+    m.push({t:"Utang",d:"Limit: hanggang 30% ng kita ang hulog",v:pct(dti),s:s3,bar:lpay?Math.min(1,dT/Math.max(lpay,1)):null,
+      al:"Limit", aim:`hanggang ${peso(dT)} kada buwan`, gap:lpay>dT?`bawasan ng ${peso(lpay-dT)} kada buwan`:"",
       tip:s3<1?`Iwasan muna ang bagong utang at unahing bayaran ang may pinakamataas na interest (hal. credit card).`:lpay?`Pasok ka! Iwasang madagdagan ang utang at bayaran nang maaga kung kaya.`:`Walang utang. Ituloy!`});
     const s4=Math.min(efMonths/efTarget,1), eT=efTarget*essentials;
     m.push({t:"Emergency fund",d:`Target: ${efTarget} buwan ng needs + hulog`,v:(efMonths>=99?"99+":efMonths.toFixed(1))+" buwan",s:s4,bar:s4,
@@ -970,7 +980,7 @@ function calc(){
     $("cfWarn").innerHTML=surplus<0?`<div class="warnbox"><div class="dot">!</div><div><b>Mas malaki ang gastos kaysa kita</b> ng ${peso(-surplus)} kada buwan. Unahing bawasan ang wants (${peso(wants)}).</div></div>`:"";
     Object.assign(REP,{score,verdict:$("verdict").textContent,vText:$("vText").textContent,metrics:m.map(x=>({...x,st:stat(x.s),tip:x.tip}))});
     $("metrics").innerHTML=m.map(x=>{const st=stat(x.s);return `<div class="metric ${st}"><div class="top"><div><div class="t">${x.t} <span class="pill ${st}">${LBL[st]}</span></div><div class="d">${x.d}</div></div><div class="v">${x.v}</div></div>
-      ${x.bar!=null?`<div class="bar"><i style="width:${Math.max(3,x.bar*100)}%"></i></div>`:""}<div class="tip"><div><b>Dapat:</b> ${x.aim}</div>${x.gap?`<div><b>Kailangang itabi/ayusin:</b> ${x.gap}</div>`:""}<div style="margin-top:4px"><b>Tip:</b> ${x.tip}</div></div></div>`;}).join("");
+      ${x.bar!=null?`<div class="bar"><i style="width:${Math.max(3,x.bar*100)}%"></i></div>`:""}<div class="tip"><div><b>${x.al||"Target"}:</b> ${x.aim}</div>${x.gap?`<div><b>Kailangang itabi/ayusin:</b> ${x.gap}</div>`:""}<div style="margin-top:4px"><b>Tip:</b> ${x.tip}</div></div></div>`;}).join("");
   }
 
   Object.assign(REP,{age,cash,inv,debt,lpay,hasDebt,sal,oth,tith,needs,wants,invAmt,depA,depY,ins,income,expenses,surplus,hasInc,yrs,invRateTxt:(invRate*100).toFixed(1).replace(".0","")+"%"});
@@ -979,13 +989,13 @@ function calc(){
   $("gEmpty").innerHTML=gAmt?"":emptyBox("Wala pang goal","Ilagay ang goal mo at kung magkano ito sa Module 1.");
   $("gBody").classList.toggle("hide",!gAmt);
   if(gAmt){
-    const k=gFund||(yrs<5?"st":"gb"), f=FUNDS[k], r=f.sim/100;
+    const k=gFund||(yrs<5?"st":"gb"), f=FUNDS[k], RK=RISK[k], r=RK.rate/100;
     document.querySelectorAll("#riskWrap button").forEach(b=>b.classList.toggle("on",b.dataset.r===k));
     const fCost=gAmt*Math.pow(1+INFLATION,yrs);
     $("gTitle").textContent=gName; $("gCost").textContent=short(fCost);
     $("gWhen").textContent=`${yrs} taon${age?` · edad ${Math.round(age+yrs)}`:""}`;
-    $("hzWarn").innerHTML=yrs<f.horizon?`<div class="warnline">Ayon sa KIIDS, ang fund na ito ay para sa ${f.horizon}+ taon. Mas bagay ang <b>Low risk</b> sa goal na ${yrs} taon.</div>`:"";
-    $("pickFund").innerHTML=`<div><span class="rk">${f.level}</span><b>${f.name}</b><small>${f.simLbl}: <b style="display:inline;font-size:12.5px;color:var(--good)">${f.sim}%</b></small></div><button class="btn pri sm" style="flex:none" onclick="openFund('${k}')">Alamin ang investment na ito</button>`;
+    $("hzWarn").innerHTML=yrs<f.horizon?`<div class="warnline">Ang mga halimbawang investment para sa ${RK.lvl.toLowerCase()} ay para sa ${f.horizon}+ taon. Mas bagay ang <b>Low risk</b> sa goal na ${yrs} taon.</div>`:"";
+    $("pickFund").innerHTML=`<div><span class="rk">${RK.lvl} · Halimbawa</span><b>${f.name}</b><small>${f.profile} · para sa ${f.horizon}+ taon</small></div><button class="btn pri sm" style="flex:none" onclick="openFund('${k}')">Alamin ang investment na ito</button>`;
     const lump=val("sLump"), moIn=val("sMo");
     const invFV=growLump(inv,invRate,yrs);
     $("useInvTxt").innerHTML=inv?`Kasama na rito ang current investments mong ${peso(inv)}. Sa tantiyang ${(invRate*100).toFixed(1).replace(".0","")}%/taon, maaari itong maging humigit-kumulang <b>${peso(invFV)}</b> sa Year ${yrs} (hindi garantisado).`:"";
@@ -993,7 +1003,7 @@ function calc(){
     wbMonthly=need;
     $("nowLbl").textContent=lump?`Tantiyang itatabi kada buwan · kasama ang ${peso(lump)} na ilalagay mo ngayon`:"Tantiyang itatabi kada buwan";
     $("needMo").innerHTML=need>0?peso(need)+" <span>/ buwan</span>":"Sapat na! 🎉";
-    $("needTxt").textContent=need>0?`Tantiya ito kung i-invest sa ${f.name} sa loob ng ${yrs} taon para maabot ang ${peso(fCost)}, base sa nakaraang return nito (${f.sim}%/taon). Hindi garantisado ang return; maaaring mas mataas o mas mababa ang aktwal.`:`Kung lalago ito gaya ng nakaraang return ng fund, maaaring sapat na ito para sa goal mo. Hindi ito garantisado.`;
+    $("needTxt").textContent=need>0?`Tantiya ito para maabot ang ${peso(fCost)} sa loob ng ${yrs} taon, base sa ${RK.basis} (${RK.rate}%/taon). Hindi garantisado ang return; maaaring mas mataas o mas mababa ang aktwal.`:`Kung lalago ito gaya ng ${RK.basis}, maaaring sapat na ito para sa goal mo. Hindi ito garantisado.`;
     const avail=invAmt+Math.max(surplus,0);
     $("gStatus").innerHTML=!hasInc||need===0?"":avail>=need
       ?`<div class="status good" style="margin:0"><div class="dot">✓</div><div><b>Kaya mo ito!</b>May ${peso(avail)} kang natitira at naiipon kada buwan.</div></div>`
@@ -1004,7 +1014,7 @@ function calc(){
       <div class="${hit?"hit":"miss"}"><small>Estimated value nito on Year ${yrs}</small><b>${peso(proj)}</b></div>
       <div style="grid-column:1/-1" class="${hit?"hit":"miss"}"><small>Kapag sinimulan mo ito,</small><b style="font-size:15px">${hit?`maaabot mo ang goal mo (${pg}%)!`:`aabot ka sa ${pg}% ng goal mo · kulang ng ${peso(fCost-proj)}`}</b></div>`;
     simChart(yrs,r,lump,mo,fCost,invFV?{inv,invRate}:null);
-    Object.assign(REP,{gName,gAmt,fCost,when:$("gWhen").textContent,fund:f.name,fundRet:f.simLbl+": "+f.sim+"%",invFV,nowLbl:$("nowLbl").textContent,
+    Object.assign(REP,{gName,gAmt,fCost,when:$("gWhen").textContent,fund:RK.lvl+" (halimbawa: "+f.name+")",fundRet:RK.rate+"%/taon · "+RK.basis,invFV,nowLbl:$("nowLbl").textContent,
       needTxt:$("needMo").textContent.replace("/ buwan","kada buwan"),statusTxt:[...$("gStatus").querySelectorAll(".status > div:last-child")].map(d=>[...d.childNodes].map(n=>n.textContent.trim()).filter(Boolean).join(" · ")).join(""),
       lump,mo,put,proj,hit,hitTxt:hit?`maaabot mo ang goal mo (${pg}%).`:`aabot ka sa ${pg}% ng goal mo · kulang ng ${peso(fCost-proj)}.`});
   }
@@ -1019,9 +1029,9 @@ function calc(){
   $("pWarn").innerHTML=w;
   const py=pAge?Math.max(0,pRet-pAge):0, pf=PERA.find(x=>x.k===peraK), fName=FUNDS[peraK].name;
   const res=PERA.map(x=>({...x,fv:fvm(yearly/12,x.rate,py)})), sel=res.find(x=>x.k===peraK);
-  $("pFundL").textContent=`${fName.replace("BPI ","")} · sa edad ${pRet}`;
+  $("pFundL").textContent=`Maaaring maging halaga sa edad ${pRet} · ${fName.replace("BPI ","")}`;
   if(!yearly||!pAge){ $("pFV").textContent="₱—"; $("pDesc").innerHTML="Ilagay ang buwanang halaga at edad mo para makita ang projection."; }
-  else { $("pFV").textContent=peso(sel.fv); $("pDesc").innerHTML=`Kung ${peso(yearly/12)}/buwan sa loob ng ${py} taon, gamit ang ${pf.lbl} na nakaraang return na ${(pf.rate*100).toFixed(2)}%/taon. <button class="lnk" style="color:var(--gold)" onclick="openFund('${peraK}')">Alamin ang investment na ito →</button>`; }
+  else { $("pFV").textContent=peso(sel.fv); $("pDesc").innerHTML=`<button class="lnk" style="color:var(--gold)" onclick="openFund('${peraK}')">Alamin ang investment na ito →</button>`; }
   $("pTot").textContent=short(yearly*py); $("pTaxY").textContent=peso(yearly*PERA_CREDIT); $("pTax").textContent=short(yearly*py*PERA_CREDIT);
   const mx=Math.max(1,...res.map(x=>x.fv));
   const putTot=yearly*py; if(sel && yearly && pAge && sel.fv<putTot) $("pDesc").innerHTML+=`<br><b style="color:var(--gold)">Paalala:</b> sa return na ito, mas mababa ang tantiyang halaga kaysa sa ilalagay mo.`;
